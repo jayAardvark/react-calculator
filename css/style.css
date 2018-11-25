@@ -114,3 +114,9 @@ button {
 #details {
   color: white;
 }
+#project-details {
+  width: 700px;
+  margin: auto;
+  text-align: left;
+  padding-top: 10px;
+}
