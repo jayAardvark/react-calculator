@@ -1,0 +1,231 @@
+class Calculator extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      display: "0"
+    };
+  }
+
+  handleClickAC = event => {
+    this.setState({ display: event.target.value });
+  };
+
+  handleClick = event => {
+    if (this.state.display != "0") {
+      this.setState({ display: this.state.display + event.target.value });
+    } else {
+      this.setState({ display: event.target.value });
+    }
+  };
+
+  handleClickOperator = event => {
+    let displayVar = this.state.display;
+    let myRegex = /[+-/*]$/;
+    console.log(displayVar + " dispVar");
+    if (myRegex.test(displayVar)) {
+      let newDisplay = displayVar.replace(myRegex, event.target.value);
+      console.log(typeof newDisplay + " type Display");
+      this.setState({
+        display: newDisplay
+      });
+    } else {
+      this.setState({
+        display: this.state.display + event.target.value
+      });
+    }
+  };
+
+  handleClickEquals = () => {
+    this.setState({
+      display: eval(this.state.display)
+    });
+  };
+
+  //fix this logic
+  handleClickDecimal = event => {
+    let myString = this.state.display;
+
+    let myRegex = /\d*\.?\d*$/;
+    let getMatch;
+    if (myString.match(myRegex) == null) {
+      getMatch = "0";
+    } else {
+      getMatch = myString.match(myRegex).toString(); //without toString(), getMatch is array.
+    }
+
+    console.log(getMatch + " getMatch");
+    let checkDecimal = getMatch.includes(".");
+
+    if (checkDecimal == false) {
+      this.setState({
+        display: this.state.display + event.target.value
+      });
+    }
+  };
+
+  render() {
+    return (
+      <div className="container">
+        <div id="display">{this.state.display}</div>
+        {console.log(this.state.display)}
+
+        <button
+          id="clear"
+          type="button"
+          class="btn btn-warning"
+          value={"0"}
+          onClick={this.handleClickAC}
+        >
+          AC
+        </button>
+
+        <button
+          id="zero"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClick}
+          value={0}
+        >
+          0
+        </button>
+        <button
+          id="one"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClick}
+          value={1}
+        >
+          1
+        </button>
+        <button
+          id="two"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClick}
+          value={2}
+        >
+          2
+        </button>
+        <button
+          id="three"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClick}
+          value={3}
+        >
+          3
+        </button>
+        <button
+          id="four"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClick}
+          value={4}
+        >
+          4
+        </button>
+        <button
+          id="five"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClick}
+          value={5}
+        >
+          5
+        </button>
+        <button
+          id="six"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClick}
+          value={6}
+        >
+          6
+        </button>
+        <button
+          id="seven"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClick}
+          value={7}
+        >
+          7
+        </button>
+        <button
+          id="eight"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClick}
+          value={8}
+        >
+          8
+        </button>
+        <button
+          id="nine"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClick}
+          value={9}
+        >
+          9
+        </button>
+        <button
+          id="add"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClickOperator}
+          value={"+"}
+        >
+          {/*do these need to be shown?*/}
+          +
+        </button>
+        <button
+          id="subtract"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClickOperator}
+          value={"-"}
+        >
+          {/*do these need to be shown?*/}
+          -
+        </button>
+        <button
+          id="multiply"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClickOperator}
+          value={"*"}
+        >
+          *
+        </button>
+        <button
+          id="divide"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClickOperator}
+          value={"/"}
+        >
+          /
+        </button>
+        <button
+          id="decimal"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClickDecimal}
+          value={"."}
+        >
+          .
+        </button>
+        <button
+          id="equals"
+          type="button"
+          class="btn btn-warning"
+          onClick={this.handleClickEquals}
+        >
+          =
+        </button>
+      </div>
+    );
+  }
+}
+ReactDOM.render(<Calculator />, document.getElementById("target-render"));
